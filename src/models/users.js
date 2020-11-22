@@ -1,4 +1,3 @@
-const createModel = require('../bases/baseModel');
 const database = require('../modules/firebase');
 const moment = require('moment');
 const { v4 } = require('uuid');
