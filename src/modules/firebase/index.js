@@ -14,8 +14,9 @@ database
   .collection('users')
   .get()
   .then(() => console.log('Connected to database.'))
-  .catch((err) => {
-    console.log('Error getting documents', err);
-  })
+  .catch(error => {
+    console.error(`Error connecting to database: ${error}`);
+    process.exit(1);
+  });
 
 module.exports = database;

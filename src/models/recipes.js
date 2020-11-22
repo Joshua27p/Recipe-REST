@@ -54,6 +54,21 @@ const Recipes = {
         console.log('Error getting documents', err);
       })
   ),
+  findById: (id) => (
+    database
+      .collection('recipes')
+      .where('recipeId', '==', id)
+      .get()
+      .then(snapshot =>
+        snapshot.docs.map(doc => ({
+          // docId: doc.id,
+          ...doc.data()
+        }))
+      )
+      .catch((err) => {
+        console.log('Error getting documents', err);
+      })
+  ),
 };
 
 module.exports = Recipes;

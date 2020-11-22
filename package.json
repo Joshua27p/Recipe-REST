@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "DEBUG=knex:query nodemon src/index.js",
-    "dev:windows": "cross-env DEBUG=knex:query nodemon src/index.js"
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,18 +13,14 @@
   "dependencies": {
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
-    "bull": "^3.14.0",
     "cors": "^2.8.5",
-    "exceljs": "^4.0.0",
     "express": "^4.17.1",
     "firebase-admin": "^9.4.1",
     "helmet": "^3.21.3",
     "http-errors": "^1.7.3",
-    "knex": "^0.20.13",
     "moment": "^2.26.0",
     "morgan": "^1.10.0",
     "nanoid": "^3.1.12",
-    "pg": "^8.2.1",
     "uuid": "^8.1.0"
   },
   "devDependencies": {

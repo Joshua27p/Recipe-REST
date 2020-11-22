@@ -9,6 +9,14 @@ const getRecipes = async (req, res, next) => {
   return res.send({ recipes });
 };
 
+const getRecipeDetail = async (req, res, next) => {
+  const { id } = req.params;
+  let [ recipe ] = await RecipesModel.findById(id);
+  console.log(recipe)
+  if(!recipe) return res.status(404).end() ;
+  return res.send({ recipe });
+};
+
 const createRecipe = async (req, res, next) => {
   const { recipe } = req.body;
   let recipeCreated = await RecipesModel.create(recipe);
@@ -19,5 +27,6 @@ const createRecipe = async (req, res, next) => {
 
 module.exports = {
   getRecipes,
+  getRecipeDetail,
   createRecipe
 };
