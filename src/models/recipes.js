@@ -53,6 +53,30 @@ const Recipes = {
         console.log('Error getting documents', err);
       })
   ),
+  findByUserId: async (id) => {
+    const docRef = database.collection('users').doc(id);
+    let data = []
+
+    const snapshot = await database
+    .collection('favRecipes')
+    .where('userId', '==', docRef)
+    .get()
+
+    for (const doc of snapshot.docs) {
+      const recipeRef = doc.data().recipeId;
+      const snapshot = await recipeRef.get()
+      console.log(snapshot.data())
+      data.push(snapshot.data())
+    }
+    return data;
+    // snapshot.docs.map(async doc => {
+    //   const recipeRef = doc.data().recipeId;
+    //   const snapshot = await recipeRef.get()
+    //   console.log(snapshot.data())
+    //   data.push(snapshot.data())
+    //   return snapshot.data()
+    // })
+  },
   findById: (id) => (
     database
       .collection('recipes')
