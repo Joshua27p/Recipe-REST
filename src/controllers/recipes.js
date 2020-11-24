@@ -26,6 +26,8 @@ const getRecipesByUser = async (req, res, next) => {
 
 const createRecipe = async (req, res, next) => {
   const { recipe } = req.body;
+  const recipeExist = await RecipesModel.findRecipeExist(recipe.title);
+  if(recipeExist.length > 0) return res.status(403).send();
   let recipeCreated = await RecipesModel.create(recipe);
   console.log(recipeCreated)
   return res.send({ recipeCreated });

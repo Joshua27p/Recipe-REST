@@ -92,6 +92,21 @@ const Recipes = {
         console.log('Error getting documents', err);
       })
   ),
+  findRecipeExist: (title) => (
+    database
+      .collection('recipes')
+      .where('title', '==', title)
+      .get()
+      .then(snapshot =>
+        snapshot.docs.map(doc => ({
+          // docId: doc.id,
+          ...doc.data()
+        }))
+      )
+      .catch((err) => {
+        console.log('Error getting documents', err);
+      })
+  ),
   findFavExist: (userId, recipeId) => (
     database
       .collection('favRecipes')
