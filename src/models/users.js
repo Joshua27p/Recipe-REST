@@ -55,6 +55,24 @@ const Users = {
         console.log('Error getting documents', err);
       })
   ),
+  findUserExist: ({ username }) => (
+    database
+      .collection('users')
+      .where('username', '==', username)
+      .get()
+      .then(snapshot =>
+        // snapshot.forEach((doc) => {
+        //   console.log(doc.id, '=>', doc.data());
+        // });
+        snapshot.docs.map(doc => ({
+          // docId: doc.id,
+          ...doc.data()
+        }))
+      )
+      .catch((err) => {
+        console.log('Error getting documents', err);
+      })
+  ),
 };
 
 module.exports = Users;

@@ -31,10 +31,20 @@ const createRecipe = async (req, res, next) => {
   return res.send({ recipeCreated });
 };
 
+const addFavRecipe = async (req, res, next) => {
+  const { userId, recipeId } = req.body;
+  const favRecipeExist = await RecipesModel.findFavExist(userId, recipeId);
+  if(favRecipeExist.length > 0) return res.status(403).send();
+  let recipeCreated = await RecipesModel.addToFav(userId, recipeId);
+  console.log(recipeCreated)
+  return res.send({ recipeCreated });
+}
+
 
 module.exports = {
   getRecipes,
   getRecipeDetail,
   getRecipesByUser,
-  createRecipe
+  createRecipe,
+  addFavRecipe
 };

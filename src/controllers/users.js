@@ -11,6 +11,8 @@ const login = async (req, res, next) => {
 
 const register = async (req, res, next) => {
   const { user } = req.body;
+  const userExist = await UsersModel.findUserExist(user);
+  if(userExist.length > 0) return res.status(403).send()
   let userCreated = await UsersModel.create(user);
   console.log(userCreated)
   return res.send({ userCreated });

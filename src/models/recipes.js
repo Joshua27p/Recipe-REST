@@ -92,6 +92,40 @@ const Recipes = {
         console.log('Error getting documents', err);
       })
   ),
+  findFavExist: (userId, recipeId) => (
+    database
+      .collection('favRecipes')
+      .where('userId', '==', database.doc(`/users/${userId}`))
+      .where('recipeId', '==', database.doc(`/recipes/${recipeId}`))
+      .get()
+      .then(snapshot =>
+        snapshot.docs.map(doc => ({
+          // docId: doc.id,
+          ...doc.data()
+        }))
+      )
+      .catch((err) => {
+        console.log('Error getting documents', err);
+      })
+  ),
+  addToFav: (userId, recipeId) => (
+    database
+    .collection('favRecipes')
+    .add({
+      userId: database.doc(`/users/${userId}`),
+      recipeId: database.doc(`/recipes/${recipeId}`)
+    })
+    .then(recipeAdded =>
+      database
+        .collection('favRecipes')
+        .doc(recipeAdded['_path']['segments'][1])
+        .set({
+          id: recipeAdded['_path']['segments'][1]
+        }, { merge: true })
+        .then(recipeUpdated => recipeUpdated)
+        .catch(e => console.log(e))
+    )
+  )
 };
 
 module.exports = Recipes;
