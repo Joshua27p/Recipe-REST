@@ -4,8 +4,8 @@ const createError = require('http-errors');
 const login = async (req, res, next) => {
   const { username, password } = req.body;
   let user = await UsersModel.find({username, password});
-  console.log(user)
-  if(user.length <= 0) return createError(404)
+  console.log(user.length)
+  if(user.length <= 0) return res.status(404).send()
   return res.send({ user });
 };
 
